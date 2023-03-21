@@ -38,6 +38,7 @@ import (
 type ReplicationStatus string
 
 const (
+	iso8601TimeFormat = "2006-01-02T15:04:05.000Z"
 	// ReplicationStatusPending indicates replication is pending
 	ReplicationStatusPending ReplicationStatus = "PENDING"
 	// ReplicationStatusComplete indicates replication completed ok
@@ -157,7 +158,7 @@ func (opts PutObjectOptions) Header() (header http.Header) {
 	}
 
 	if !opts.RetainUntilDate.IsZero() {
-		header.Set("X-Amz-Object-Lock-Retain-Until-Date", opts.RetainUntilDate.Format(time.RFC3339))
+		header.Set("X-Amz-Object-Lock-Retain-Until-Date", opts.RetainUntilDate.Format(iso8601TimeFormat))
 	}
 
 	if opts.LegalHold != "" {
